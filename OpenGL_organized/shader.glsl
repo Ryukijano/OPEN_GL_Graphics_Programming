@@ -4,12 +4,15 @@ vec3 palette( float t ) {
     vec3 c = vec3(1.0, 1.0, 1.0);
     vec3 d = vec3(0.263,0.416,0.557);
 
-    return a + b*cos( 6.28318*(c*t+d) );
+    // Increase the contrast and saturation of the colors
+    return a + b * cos( 6.28318 * (c * t + d) ) * 2.0;
 }
 
-//https://www.shadertoy.com/view/mtyGWy
 void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
-    vec2 uv = (fragCoord * 2.0 - iResolution.xy) / iResolution.y;
+    // Scale fragCoord to simulate a higher resolution
+    vec2 scaledFragCoord = fragCoord * 2.0;
+
+    vec2 uv = (scaledFragCoord - iResolution.xy) / iResolution.y;
     vec2 uv0 = uv;
     vec3 finalColor = vec3(0.0);
     
